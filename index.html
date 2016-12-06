@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+
+   <TITLE>Innovation, Catch-up and Leadership in Science-Based Industries. InCaLead</TITLE>
+
+   <META http-equiv=Content-Type content="text/html; charset=windows-1252">
+
+   <META name=keywords content="innovation, mobility, catch-up, science-based industries, evolutionary economics, netLogo, agent-based modelling">
+
+   <META name=Description content="InCaLead is a model of industrial catch-up which incorporates industrial scientists' training and migration, endogenous R&amp;D decisions and the possibility of funding capital accumulation through debt.">
+
+   <META name=Authors content="Isabel Almud&iacute;, Francisco Fat&aacute;s-Villafranca &amp; Luis R. Izquierdo">
+
+   <STYLE type="text/css">
+      H1 {
+         BACKGROUND-COLOR: #111199;
+         color: #ffffff;
+         font-family: monospace;
+         padding: 5px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H2 {
+         BACKGROUND-COLOR: #66ccff;
+         font-family: arial;
+         padding: 4px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H3 {
+         BACKGROUND-COLOR: #cccccc;
+         font-family: verdana;
+         font-weight: bold;
+         padding: 4px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H4 {
+         font-family: verdana;
+         text-decoration: underline;
+         font-weight: bold;
+         padding: 4px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H5 {
+         font-family: verdana;
+         font-weight: bold;
+         padding: 4px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      p {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      table {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ul {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ol {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.parameter {
+         font-family: arial;
+         color: red;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.variable {
+         font-family: arial;
+         color: black;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.button {
+         font-family: arial;
+         color: blue;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.value {
+         font-family: arial;
+         color: #444444;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.slider {
+         font-family: arial;
+         color: green;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.monitor {
+         font-family: arial;
+         color: #B8860B;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.plot {
+         font-family: arial;
+         color: purple;
+         font-weight: bold
+      }
+   </STYLE>
+
+</HEAD>
+
+<body>
+
+   <H1>Innovation, Catch-up and Leadership in Science-Based Industries. InCaLead</H1>
+   <h3>Isabel Almud&iacute;, Francisco Fat&aacute;s-Villafranca &amp; Luis R. Izquierdo</h3>
+
+   <H2>HOW TO INSTALL THE MODEL</H2>
+
+   <p>To use incalead, you will have to install <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo 5.3.1 (free and open source)</a> and download <a href="incalead.nlogo">the model itself</a>. Unzip the downloaded file and click on incalead.nlogo</p>
+
+   <!--
+   <p>This applet requires requires Java 5 or higher. You may obtain the latest Java plugin from
+      <a target="_blank" href="http://java.sun.com/getjava/download.html">Sun's Java site</a>.</p>
+   <hr>
+
+   <p align="center">
+      <applet code="org.nlogo.lite.Applet" archive="NetLogoLite.jar" width="1060" height="900">
+         <param name="DefaultModel" value="incalead.nlogo">
+         <param name="java_arguments" value="-Djnlp.packEnabled=true">
+      </applet>
+   </p>
+
+   <p>powered by
+      <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo</a></p>
+
+   <p>view/download model file:
+      <a href="incalead.nlogo">applet.nlogo</a>
+   </p>
+-->
+
+   <H2>DESCRIPTION OF THE MODEL</H2>
+
+   <p><b>InCaLead</b> (<b>In</b>novation, <b>Ca</b>tch-up and <b>Lead</b>ership in Science-Based Industries) is an evolutionary model designed to explore the role of scientists' mobility, and the interactions among innovation, mobility and demand as key drivers of industrial leadership and catch-up. The model incorporates industrial scientists' training and migration, endogenous R&amp;D decisions and the possibility of funding capital accumulation through debt.</p>
+
+   <p>This section explains the formal model that <b>InCaLead</b> implements. The information provided here should suffice to re-implement the same formal model in any sophisticated enough modelling platform. We use bold red italicised arial font to denote <i class="parameter">parameters</i> and <i class="parameter">initial conditions</i> (i.e. variables that can be set by the user), and we use bold green italicised arial font to denote the name of the corresponding <i class="slider">slider</i> or <i class="slider">box</i> in the interface of the model above. All sliders can be changed at run-time with immediate effect on the dynamics of the model.</p>
+
+   <p>The figure below summarizes the main interactions among the most important variables in the model; it is a helpful reference to look at whilst reading the explanation of the model.</p>
+
+   <center><img src="sketch.png" alt="sketch"></center>
+
+   <p align="center"><b>Sketch of the interactions among the most important variables in the model.</b> The variables that are more closely related to scientists' mobility are represented towards the left, whilst the variables more related to the market for the product appear towards the right. These two subsystems affect each other in a number of ways. In fact, there are several negative feedback loops (red arrows) that favor the stability of various variables. For example, higher R&amp;D productivities <i class="variable">z<sub>i</sub></i> have a positive effect on performance <i class="variable">x<sub>i</sub></i>, but this increase in performance diminishes the gap that separates the actual technological level from the technological frontier, and thus lowers R&amp;D productivity (see FB1). Similarly, greater levels of competitiveness <i class="variable">&gamma;<sub>i</sub></i> have a direct positive effect on market shares <i class="variable">s<sub>i</sub></i>, which lead to higher prices <i class="variable">p<sub>i</sub></i>, which in turn imply lower competitiveness (see FB2). And finally, greater salaries <i class="variable">w<sub>i</sub></i> attract mobile scientists, but this increase in the number of scientists <i class="variable">H<sub>i</sub></i> in a country puts pressure to lower salaries (see FB3).</p>
+
+   <p>In order to simplify the model's presentation, we classify our assumptions into five subsections: "The Firms' Competitiveness", "Demand Transformation", "Production and Growth", "Financing" and "Innovation and Institutions".</p>
+
+   <h3>The Firms' Competitiveness</h3>
+
+   <p>There are 3 firms, each one with a different national identity, competing at a worldwide level in a science-based sector. There is one firm per nation, so we can identify the representative firm of nation <i>i</i> with the <i>i</i>-th national industry. We assume that the firms compete over price <i class="variable">p<sub>i</sub></i> and product performance <i class="variable">x<sub>i</sub></i> (quality, reliability, size, speed, precision). Firms set prices applying a margin to the unit cost <i class="variable">c<sub>i</sub></i> equal to their individual market-share <i class="variable">s<sub>i</sub></i> (larger margins for greater market powers). Thus, </p>
+
+   <p align="center">
+      <i class="variable">p<sub>i</sub></i> = (1 + <i class="variable">s<sub>i</sub></i>)&middot;<i class="variable">c<sub>i</sub></i>
+   </p>
+
+   <p>Thus, firm <i>i</i>'s unit profit is</p>
+
+   <p align="center">
+      <i class="variable">&pi;<sub>i</sub></i> = <i class="variable">p<sub>i</sub></i> - <i class="variable">c<sub>i</sub></i> = <i class="variable">s<sub>i</sub></i>&middot;<i class="variable">c<sub>i</sub></i>
+   </p>
+
+
+   <p>Regarding performance <i class="variable">x<sub>i</sub></i>, we will establish below how firms improve their products through R&amp;D-based technological innovations. For now, given the vector (<i class="variable">p<sub>i</sub></i>, <i class="variable">x<sub>i</sub></i>) we can define the level of competitiveness of firm <i>i</i>'s product (as consumers perceive it in the global market) in the following way:</p>
+
+   <p align="center">
+      <i class="variable">&gamma;<sub>i</sub></i> = (1-<i class="parameter">&alpha;</i>)&middot;(<i class="variable">x<sub>i</sub></i>-<i class="variable">x</i>)/<i class="variable">x</i> - <i class="parameter">&alpha;</i>&middot;(<i class="variable">p<sub>i</sub></i>-<i class="variable">p</i>)/<i class="variable">p</i>
+   </p>
+   <p> where <i class="variable">x</i> = &sum;<sub><i>j</i></sub><i class="variable">x<sub>j</sub></i>/3 and <i class="variable">p</i> = &sum;<sub><i>j</i></sub><i class="variable">p<sub>j</sub></i>/3.</p>
+
+   <p>This formula captures the fact that consumers value both high levels of performance and low prices. The subjective relativity implied by the terms "high" and "low" is quantified using the average across the different products, whilst the trade-off between performance and price is regulated by parameter <i class="parameter">&alpha;</i> (the <i class="slider">price/performance-sensitivity</i> of demand).
+   </p>
+
+   <h3>Demand Transformation</h3>
+   <p>Production and growth are demand-driven. Regarding the demand-side of the market, we consider that the global demand (<i class="variable">Q<sup>d</sup></i>) grows at a constant and exogenous rate <i class="parameter">g</i> &gt; 0 (<i class="slider">demand-growth-rate</i>), starting out from an initial level (<i class="variable">Q<sup>d</sup></i>(0)). Likewise, as <i class="variable">s<sub>i</sub></i> is the proportion of global demand supplied by firm <i class="variable">i</i> -that is, its market share- we can see that the instantaneous demand of firm <i class="variable">i</i> will be:</p>
+
+   <p align="center">
+      <i class="variable">Q<sup>d</sup><sub>i</sub></i> = <i class="variable">s<sub>i</sub></i>&middot;<i class="variable">Q<sup>d</sup></i> = <i class="variable">s<sub>i</sub></i>&middot;<i class="variable">Q<sup>d</sup></i>(0)&middot;e<sup><i class="parameter">g</i><i class="variable">t</i></sup>
+   </p>
+
+   <p>If we consider that the consumers interact among themselves, observing each other and disseminating information regarding prices and performances of different products, we can assume that there will be a gradual process of demand transformation. That is, consumers will withdraw their demand from certain firms and pass it on to others with a higher level of competitiveness <i class="variable">&gamma;<sub>i</sub></i>. Drawing on Metcalfe (1998), we propose that this process of demand transformation can be represented by:</p>
+
+   <p align="center">
+      d<i class="variable">s<sub>i</sub></i>/dt = <i class="variable">s<sub>i</sub></i>&middot;(<i class="variable">&gamma;<sub>i</sub></i> - <i class="variable">&gamma;<sub>s</sub></i>)
+   </p>
+   <p> where <i class="variable">&gamma;<sub>s</sub></i> = &sum;<sub><i>j</i></sub><i class="variable">s<sub>j</sub></i><i class="variable">&gamma;<sub>j</sub></i>.</p>
+
+   <p> Thus, the rate <i class="variable">g<sup>d</sup><sub>i</sub></i> at which demand for product <i class="variable">i</i> grows is:</p>
+
+   <p align="center">
+      <i class="variable">g<sup>d</sup><sub>i</sub></i> &equiv; (d<i class="variable">Q<sup>d</sup><sub>i</sub></i>/dt)/<i class="variable">Q<sup>d</sup><sub>i</sub></i> =
+      <i class="parameter">g</i> + (<i class="variable">&gamma;<sub>i</sub></i> - <i class="variable">&gamma;<sub>s</sub></i>)
+   </p>
+
+   <p>It is then clear that those firms with higher than average levels of competitiveness will tend to capture a greater proportion of the demand, thus reaching above-average demand growth rates <i class="variable">g<sup>d</sup><sub>i</sub></i>.</p>
+
+   <h3>Production and Growth</h3>
+
+   <p>Let us see how production and growth fit the evolution of demand. Starting out from a supply-demand equilibrium for each firm <i class="variable">Q<sub>i</sub></i>(0) = <i class="variable">Q<sup>d</sup><sub>i</sub></i>(0) = <i class="variable">Q<sup>s</sup><sub>i</sub></i>(0), we assume that each firm's growth rate follows the growth rate of its demand. Hence, if we assume that all firms produce in accordance with technology, i.e.:</p>
+
+   <p align="center">
+      <i class="variable">Q<sup>s</sup><sub>i</sub></i> = <i class="parameter">A</i>&middot;<i class="variable">K<sub>i</sub></i>
+   </p>
+   <p> where <i class="parameter">A</i> &gt; 0 is the <i class="slider">capital-productivity</i>, and <i class="variable">K<sub>i</sub></i> is firm <i class="variable">i</i>'s capital, the following must be fulfilled:</p>
+
+   <p align="center">
+      <i class="variable">g<sup>k</sup><sub>i</sub></i> &equiv; (d<i class="variable">K<sub>i</sub></i>/dt)/<i class="variable">K<sub>i</sub></i> =
+      <i class="variable">g<sup>s</sup><sub>i</sub></i> &equiv; (d<i class="variable">Q<sup>s</sup><sub>i</sub></i>/dt)/<i class="variable">Q<sup>s</sup><sub>i</sub></i> =
+      <i class="variable">g<sup>d</sup><sub>i</sub></i> = <i class="parameter">g</i> + (<i class="variable">&gamma;<sub>i</sub></i> - <i class="variable">&gamma;<sub>s</sub></i>)
+   </p>
+
+   <p>That is, the growth of physical capital <i class="variable">K<sub>i</sub></i> -and, therefore, of the output- in each firm fits the growth of its demand in such a way that, at all times, <i class="variable">Q<sub>i</sub></i> = <i class="variable">Q<sup>d</sup><sub>i</sub></i> = <i class="variable">Q<sup>s</sup><sub>i</sub></i> is fulfilled. Moreover, it is clear that <i class="variable">s<sub>i</sub></i> = <i class="variable">Q<sub>i</sub></i> / &sum;<sub><i>j</i></sub><i class="variable">Q<sub>j</sub></i> = <i class="variable">K<sub>i</sub></i> / &sum;<sub><i>j</i></sub><i class="variable">K<sub>j</sub></i></p>
+
+   <h3>Financing</h3>
+   <h4>R&amp;D Spending</h4>
+   <p>Once firms have covered their costs, they need to finance both their R&amp;D activities and their investment in physical capital. Regarding R&amp;D, we assume that firms finance these activities with current profits; that is to say, they do not resort to external financing for these expenses. Previous contributions in the literature (Greenwald and Stiglitz, 1990 or Chiao, 2002) associate this behavior with the uncertainty of R&amp;D. To be specific, we assume that the firms devote a proportion <i class="variable">r<sub>i</sub></i> &isin; (0,1) of their current profits to R&amp;D, so that firm <i class="variable">i</i>'s R&amp;D spending is:</p>
+
+   <p align="center">
+      <i class="variable">R<sub>i</sub></i> = <i class="variable">r<sub>i</sub></i>&middot;<i class="variable">&pi;<sub>i</sub></i>&middot;<i class="variable">Q<sub>i</sub></i>
+   </p>
+
+   <p>Clearly, <i class="variable">r<sub>i</sub></i> is a firm-specific operating routine. According to Silverberg and Verspagen (2005), deciding the most convenient level of has traditionally been considered as an uncertain strategic choice. Therefore, instead of assuming that <i class="variable">r<sub>i</sub></i> is calculated by applying any optimizing procedure, we will consider that firms adapt this routine by imitating the behavior of their most successful rival. More precisely, we will consider that firms update <i class="variable">r<sub>i</sub></i> according to the following expression:</p>
+
+   <p align="center">
+      d<i class="variable">r<sub>i</sub></i>/dt = <i class="parameter">&beta;</i>&middot;(<i class="variable">r<sup>*</sup></i> - <i class="variable">r<sub>i</sub></i>)
+   </p>
+
+   <p>where <i class="variable">r<sup>*</sup></i> denotes the R&amp;D routine of the most profitable firm at the time, and <i class="parameter">&beta;</i> is the <i class="slider">learning-rate</i>.</p>
+
+   <h4>Debt and Physical Investment</h4>
+
+   <p>Regarding physical investment, we assume that firms devote the necessary proportion of their current profits (free of R&amp;D expenses) to finance the growth of <i class="variable">K<sub>i</sub></i>. That is, they finance it as much as possible with their own funds before resorting to debt for any remaining needs. This is seen in the following investment function:</p>
+   <p align="center">
+      d<i class="variable">K<sub>i</sub></i>/dt = <i class="variable">&theta;<sub>i</sub></i>&middot;(1 - <i class="variable">r<sub>i</sub></i>)<i class="variable">&pi;<sub>i</sub></i>&middot;<i class="variable">Q<sub>i</sub></i>
+   </p>
+
+   <p>Considering the previous equations, we obtain that <i class="variable">&theta;<sub>i</sub></i> is endogenously determined according to the following expression:</p>
+
+   <p align="center">
+      <i class="variable">&theta;<sub>i</sub></i> = (<i class="parameter">g</i> + (d<i class="variable">s<sub>i</sub></i>/dt)/<i class="variable">s<sub>i</sub></i>)) / ((1 - <i class="variable">r<sub>i</sub></i>)<i class="variable">&pi;<sub>i</sub></i>&middot;<i class="parameter">A</i>)
+   </p>
+
+   <p>This expression gives us the financial needs of firm <i class="variable">i</i> at any time. The following cases may occur:
+      <ul>
+         <li>If <i class="variable">&theta;<sub>i</sub></i> &le; 1, the firm can finance its capital requirements with its own funds, and may even be able to share-out profits if <i class="variable">&theta;<sub>i</sub></i> &lt; 1.
+            <li>If <i class="variable">&theta;<sub>i</sub></i> &gt; 1, the firm needs external financing. In this case, we assume that the firm will obtain the resources it needs by taking on debt at an interest rate <i class="parameter">&eta;</i> (the <i class="slider">interest-rate</i>).
+      </ul>
+   </p>
+
+   <p>This latter possibility leads us to introduce dynamics for the evolution of the firms' debts. If we assume that firms pay off their debts at a constant rate <i class="parameter">&chi;</i> &isin; (0,1) (the <i class="slider">debt-amortization-rate</i>), we can see that the debt dynamics of each firm will be:</p>
+
+   <p align="center">
+      d<i class="variable">D<sub>i</sub></i>/dt = MAX {0 , (<i class="variable">&theta;<sub>i</sub></i> - 1)&middot;(1 - <i class="variable">r<sub>i</sub></i>)<i class="variable">&pi;<sub>i</sub></i>&middot;<i class="variable">Q<sub>i</sub></i>)} - <i class="variable">&chi;<sub>i</sub></i>&middot;<i class="variable">D<sub>i</sub></i>
+   </p>
+
+   <p>Finally, the total costs of each firm will include production costs and financial costs. If we denote the debt to capital ratio of each firm by <i class="variable">d<sub>i</sub></i> = <i class="variable">D<sub>i</sub></i>/<i class="variable">K<sub>i</sub></i>, it is clear that firm 's unit cost will be
+   </p>
+   <p align="center">
+      <i class="variable">c<sub>i</sub></i> = (<i class="variable">K<sub>i</sub></i> + (<i class="parameter">&eta;</i> + <i class="parameter">&chi;</i>)&middot;<i class="variable">D<sub>i</sub></i>) / <i class="variable">Q<sub>i</sub></i> = (1 + (<i class="parameter">&eta;</i> + <i class="parameter">&chi;</i>)&middot;<i class="variable">d<sub>i</sub></i>) / <i class="parameter">A</i>
+   </p>
+
+   <h3>Innovation and Institutions</h3>
+   <h4>Innovation</h4>
+   <p>Let us denote by <i class="variable">T<sub>i</sub></i> = <i class="parameter">T<sub>i</sub>(0)</i>&middot;e<sup><i class="parameter">&lambda;<sub>i</sub></i><i class="variable">t</i></sup> the trajectory of the technological frontier of firm <i class="variable">i</i>. The initial technological frontier (<i class="parameter">T<sub>i</sub>(0)</i>, the <i class="slider">initial-tech-frontier</i>) and its expansion rate (<i class="parameter">&lambda;<sub>i</sub></i> &gt; 0, the <i class="slider">expansion-rate-tech-frontier</i>) determine the possibilities of innovation for firm <i class="variable">i</i>. It is well known (Freeman, 2004) that <i class="parameter">&lambda;<sub>i</sub></i> depends on the efficiency with which certain supporting institutions favor basic knowledge creation (national universities, public agencies and labs, industry-science interfaces, etc.).</p>
+
+   <p>Given this expanding frontier, we will assume, as in Nelson and Phelps (1966), that each firm innovates by exploring the gap separating its actual technological level (<i class="variable">x<sub>i</sub></i>) from the technological frontier. This gap can be represented by <i class="variable">z<sub>i</sub></i> = (<i class="variable">T<sub>i</sub></i> - <i class="variable">x<sub>i</sub></i>)/<i class="variable">x<sub>i</sub></i>. As in Nelson and Phelps (1966), we will assume that the rate of technological improvement is an increasing function of each firm/nation's human capital attainment, and proportional to the gap.</p>
+
+   <p>For formal convenience, we will measure each firm/nation's "human capital attainment" by the proportion (<i class="variable">h<sub>i</sub></i>) of the overall stock of scientists working in the sector worldwide (<i class="variable">H</i> = &sum;<sub><i>j</i></sub><i class="variable">H<sub>j</sub></i>) that each firm employs at any time; that is <i class="variable">h<sub>i</sub></i> = <i class="variable">H<sub>i</sub></i>/<i class="variable">H</i>. Then, we can represent the rate of improvement in each firm product performance through the following (Nelson-Phelps type) innovation function:</p>
+
+   <p align="center">
+      (d<i class="variable">x<sub>i</sub></i>/dt)/<i class="variable">x<sub>i</sub></i> = <i class="variable">z<sub>i</sub></i>&middot;<i class="variable">h<sub>i</sub></i> = ((<i class="variable">T<sub>i</sub></i> - <i class="variable">x<sub>i</sub></i>)/<i class="variable">x<sub>i</sub></i>)&middot;<i class="variable">h<sub>i</sub></i>
+
+   </p>
+
+   <p>where <i class="variable">z<sub>i</sub></i> can be identified with the productivity of R&amp;D.</p>
+
+   <h4>Institutions: The Markets for Scientists</h4>
+
+   <p>We will consider that <i class="variable">H<sub>i</sub></i> is determined by the supply and demand of scientists in each firm/national industry. Moreover, we assume that supply and demand fit instantaneously due to the flexible evolution of the scientific salary (<i class="variable">w<sub>i</sub></i>) in each nation. If we consider that firms devote their R&amp;D budgets to hiring scientists at a price given by the respective national scientific salary, the demand of scientists by firm <i class="variable">i</i> will be given by:</p>
+
+   <p align="center">
+      <i class="variable">H<sub>i</sub></i> = <i class="variable">R<sub>i</sub></i> / <i class="variable">w<sub>i</sub></i>
+   </p>
+
+   <p>The supply of scientists will come from two sources: firstly, those scientists trained by the <i class="variable">i</i>-th national university system that join the corresponding <i class="variable">i</i>-firm; secondly, those scientists that decide to migrate to firm <i class="variable">i</i> attracted by monetary and non-monetary considerations.</p>
+
+   <h5>National University systems</h5>
+   <p>For the sake of simplicity we consider that the amount of scientists trained in disciplines relevant for the industry, who finalize their training in nation <i class="variable">i</i> at any time (<i class="variable">y<sub>i</sub></i>), coincides with the volume of public resources (<i class="parameter">B<sub>i</sub></i>) devoted to training in this discipline in the <i class="variable">i</i>-th national university system. If we assume that this university budget grows linearly, we obtain:</p>
+
+   <p align="center">
+      <i class="variable">y<sub>i</sub></i> = <i class="parameter">B<sub>i</sub>(0)</i> + <i class="parameter">b<sub>i</sub></i><i class="variable">t</i>
+   </p>
+
+   <p>where <i class="parameter">B<sub>i</sub>(0)</i> (the <i class="slider">initial-budget</i>) and <i class="parameter">b<sub>i</sub></i> (the <i class="slider">budget-growth-increase</i>) are parameters. It can be seen that both these policy parameters, as well as parameters <i class="parameter">T<sub>i</sub>(0)</i> and <i class="parameter">&lambda;<sub>i</sub></i> capture very important aspects related to the efficiency with which certain science-related supporting institutions function in different nations.</p>
+
+   <h5>International mobility of scientists</h5>
+   <p>Regarding scientist mobility, we assume that there are two possibilities: remain in the same country (i.e. immobile scientists), or move (i.e. mobile scientists). At any point in time, a proportion <i class="parameter">&sigma;</i> &isin; [0,1] of the total amount of scientists are assumed to be immobile (<i class="parameter">&sigma;</i> is the <i class="slider">stay-in-country-ratio</i>), while the other (1-<i class="parameter">&sigma;</i>) constitute the pool of mobile scientists. Thus, if we denote by <i class="variable">&upsilon;<sub>i</sub></i> the share of the global stock of mobile scientists that join national industry <i class="variable">i</i> at any time, we can consider that <i class="variable">&upsilon;<sub>i</sub></i> changes depending on salary differences and the possibilities that scientists perceive to be able to carry out their work in different nations. We can associate the effectiveness of scientists' work in the different nations with the respective R&amp;D productivity <i class="variable">z<sub>i</sub></i>.Thus, we define the attractiveness <i class="variable">a<sub>i</sub></i> of a country <i class="variable">i</i> as follows:</p>
+
+   <p align="center">
+      <i class="variable">a<sub>i</sub></i> = (1-<i class="parameter">&epsilon;</i>)&middot;(<i class="variable">w<sub>i</sub></i>-<i class="variable">w</i>)/<i class="variable">w</i> + <i class="parameter">&epsilon;</i>&middot;(<i class="variable">z<sub>i</sub></i>-<i class="variable">z</i>)/<i class="variable">z</i>
+   </p>
+   <p> where <i class="variable">w</i> = &sum;<sub><i>j</i></sub><i class="variable">w<sub>j</sub></i>/3 and <i class="variable">z</i> = &sum;<sub><i>j</i></sub><i class="variable">z<sub>j</sub></i>/3.</p>
+
+   <p>A nation/firm is perceived more attractive the higher the salaries it pays and the higher its R&amp;D productivity. Like in the equation for the competitiveness, the subjective relativity implied by the term "higher" is modulated using the average across firms, whilst the trade-off between monetary and non-monetary considerations is regulated by the parameter <i class="parameter">&epsilon;</i>, the <i class="slider">r&amp;d-prod/wage-sensitivity</i> (which represents scientists' relative sensitivity to non-monetary considerations).</p>
+
+   <p>We model the movement of mobile scientists assuming that they will emigrate from their current country <i class="variable">i</i> only if there are other countries that are more attractive than theirs; when this is the case, they will emigrate from <i class="variable">i</i> to <i class="variable">j</i> at a rate proportional to the difference in attractiveness, i.e. a rate proportional to (<i class="variable">a<sub>j</sub></i> - <i class="variable">a<sub>i</sub></i>). These assumptions at the micro level give rise to the following equation at the macro level (see Fatas-Villafranca et al. (2009)):</p>
+
+   <p align="center">
+      (d<i class="variable">&upsilon;<sub>i</sub></i>/dt)/<i class="variable">&upsilon;<sub>i</sub></i> = <i class="parameter">&zeta;</i>&middot;(<i class="variable">a<sub>i</sub></i> - <i class="variable">a<sub>&upsilon;</sub></i>)
+   </p>
+   <p> where <i class="variable">a<sub>&upsilon;</sub></i> = &sum;<sub><i>j</i></sub><i class="variable">&upsilon;<sub>j</sub></i><i class="variable">a<sub>j</sub></i>.</p>
+
+   <p>where parameter <i class="parameter">&zeta;</i> (the <i class="slider">immigration-ratio-sensitivity</i>) controls the sensitivity of the immigration ratio <i class="variable">&upsilon;<sub>i</sub></i> to differences in the attractiveness of each country. Thus, the equation above establishes that those firms from specific nations which pay scientists better, or which offer better conditions for developing their activities, will attract more mobile scientists than the others.</p>
+
+   <h5>Scientists' wages</h5>
+
+   <p>Assuming market clearing at any time, the following condition must be fulfilled:</p>
+
+   <p align="center">
+      d<i class="variable">H<sub>i</sub></i>/dt = <i class="parameter">&sigma;</i>&middot;(<i class="variable">y<sub>i</sub></i> + <i class="variable">H<sub>i</sub></i>) + <i class="variable">&upsilon;<sub>i</sub></i>&middot;(1-<i class="parameter">&sigma;</i>)&middot;(&sum;<sub><i>j</i></sub><i class="variable">y<sub>j</sub></i> + &sum;<sub><i>j</i></sub><i class="variable">H<sub>j</sub></i>) - <i class="variable">H<sub>i</sub></i>
+   </p>
+
+   <p>Note that the first term in the right hand side of the equation above, i.e. <i class="parameter">&sigma;</i>&middot;(<i class="variable">y<sub>i</sub></i> + <i class="variable">H<sub>i</sub></i>), refers to the number of immobile scientists in country <i class="variable">i</i> at time (<i class="variable">t</i> + <i class="variable">&delta;t</i>) when <i class="variable">&delta;t</i>&rarr;0, whilst the second term, i.e. <i class="variable">&upsilon;<sub>i</sub></i>&middot;(1-<i class="parameter">&sigma;</i>)&middot;(&sum;<sub><i>j</i></sub><i class="variable">y<sub>j</sub></i> + &sum;<sub><i>j</i></sub><i class="variable">H<sub>j</sub></i>), refers to the share of the total pool of mobile scientists that decide to emigrate to country <i class="variable">i</i>. We can then obtain the dynamics of the national scientific salary which guarantees market clearing as:</p>
+
+   <p align="center">
+      (d<i class="variable">w<sub>i</sub></i>/dt)/<i class="variable">w<sub>i</sub></i> = (d<i class="variable">R<sub>i</sub></i>/dt)/<i class="variable">R<sub>i</sub></i> - (<i class="parameter">&sigma;</i>&middot;(<i class="variable">y<sub>i</sub></i> + <i class="variable">H<sub>i</sub></i>) + <i class="variable">&upsilon;<sub>i</sub></i>&middot;(1-<i class="parameter">&sigma;</i>)&middot;(&sum;<sub><i>j</i></sub><i class="variable">y<sub>j</sub></i> + &sum;<sub><i>j</i></sub><i class="variable">H<sub>j</sub></i>) - <i class="variable">H<sub>i</sub></i>) / <i class="variable">H<sub>i</sub></i>
+   </p>
+
+
+   <h2>PARAMETERS, INITIAL CONDITIONS, AND BUTTONS</h2>
+
+   <h3>Demand</h3>
+
+   <ul>
+      <li><i class="slider">demand-growth-rate</i> (<i class="parameter">g</i>): Rate at which global demand grows.</li>
+      <li><i class="slider">price/performance-sensitivity</i> (<i class="parameter">&alpha;</i>): Sensitivy of demand to prices (in the trade-off between product performance and price).</li>
+   </ul>
+
+   <h3>Production</h3>
+
+   <ul>
+      <li><i class="slider">capital-productivity</i> (<i class="parameter">A</i>): Productivity of capital.
+      </li>
+      <li><i class="slider">initial-capital</i> (<i class="parameter">K<sub>i</sub>(0)</i>): Ordered list of initial capitals. It contains 3 numbers: one for each firm.
+      </li>
+      <li><i class="slider">initial-performance</i> (<i class="parameter">x<sub>i</sub>(0)</i>): Ordered list of initial product performances. It contains 3 numbers: one for each firm.
+      </li>
+   </ul>
+
+   <h3>Debt</h3>
+
+   <ul>
+      <li><i class="slider">interest-rate</i> (<i class="parameter">&eta;</i>): Interest rate.
+      </li>
+      <li><i class="slider">debt-amortization-rate</i> (<i class="parameter">&chi;</i>): Rate at which firms pay their debt.
+      </li>
+      <li><i class="slider">initial-debt</i> (<i class="parameter">D<sub>i</sub>(0)</i>): Ordered list of initial debts. It contains 3 numbers: one for each firm.
+      </li>
+   </ul>
+
+   <h3>Innovation</h3>
+
+   <ul>
+      <li><i class="slider">initial-tech-frontier</i> (<i class="parameter">T<sub>i</sub>(0)</i>): Ordered list of initial technological frontiers. It contains 3 numbers: one for each firm.
+      </li>
+      <li><i class="slider">expansion-rate-tech-frontier</i> (<i class="parameter">&lambda;<sub>i</sub></i>): Ordered list of rates at which each firm's technological frontier expands. It contains 3 numbers: one for each firm.
+      </li>
+   </ul>
+
+   <h3>R&amp;D Spending</h3>
+
+   <ul>
+      <li><i class="slider">initial-r&amp;d-over-profit</i> (<i class="parameter">r<sub>i</sub>(0)</i>): Ordered list of the initial proportions of the profits that each firm devotes to R&amp;D spending. It contains 3 numbers: one for each firm.
+      </li>
+      <li><i class="slider">learning-rate</i> (<i class="parameter">&beta;</i>): Rate at which firms approach the R&amp;D routine of the most profitable firm.
+      </li>
+   </ul>
+
+   <h3>University Systems</h3>
+
+   <ul>
+      <li><i class="slider">initial-budget</i> (<i class="parameter">B<sub>i</sub>(0)</i>): Ordered list of initial budgets. It contains 3 numbers: one for each nation.</li>
+      <li><i class="slider">budget-growth-increase</i> (<i class="parameter">b<sub>i</sub></i>): Ordered list of rates at which University budgets grow. It contains 3 numbers: one for each nation.</li>
+   </ul>
+
+   <h3>Scientists' mobility</h3>
+
+   <ul>
+      <li><i class="slider">stay-in-country-ratio</i> (<i class="parameter">&sigma;</i>): Proportion of the total amount of scientists that are assumed to be immobile.</li>
+      <li><i class="slider">immigration-ratio-sensitivity</i> (<i class="parameter">&zeta;</i>): Parameter that controls the sensitivity of the immigration ratio <i class="variable">&upsilon;<sub>i</sub></i> to differences in the attractiveness of each country.</li>
+      <li><i class="slider">r&amp;d-prod/wage-sensitivity</i> (<i class="parameter">&epsilon;</i>): Sensitivy of attractiveness of a country to R&amp;D productivity (in the trade-off between wages and R&amp;D productivity).</li>
+      <li><i class="slider">initial-immigration-ratio</i> (<i class="parameter">&upsilon;<sub>i</sub>(0)</i>): Ordered list of initial immigration ratios. It contains 3 numbers: one for each nation.</li>
+      <li><i class="slider">initial-scientists-wages</i> (<i class="parameter">w<sub>i</sub>(0)</i>): Ordered list of initial wages for scientists. It contains 3 numbers: one for each nation.</li>
+   </ul>
+
+   <h3>Buttons</h3>
+
+   <ul>
+      <li><i class="button">Setup</i>: Creates the 3 firms with the parameters and initial conditions set in the <i class="slider">sliders</i> and <i class="slider">boxes</i>. </li>
+      <li><i class="button">Go</i>: Pressing this button will run the model until this same button is pressed again. </li>
+   </ul>
+
+   <h2>MONITORS AND PLOTS</h2>
+
+   <h3>Monitors</h3>
+
+   <ul>
+      <li><i class="monitor">time</i>: Time in the model.</li>
+      <li><i class="monitor">catch-up time</i>: Minimum time where the firm with the minimum initial capital reaches a market-share of 1/6.</li>
+      <li><i class="monitor">convergence time</i>: Minimum time where all market shares are within a narrow band of width 0.01.</li>
+   </ul>
+
+
+   <h3>Plots</h3>
+
+   <ul>
+      <li><i class="plot">Market share</i>: Time series of the market shares <i class="variable">s<sub>i</sub></i>.</li>
+      <li><i class="plot">Share of total scientists</i>: Time series of the shares of total scientists <i class="variable">h<sub>i</sub></i>.</li>
+      <li><i class="plot">Immigration share</i>: Time series of the immigration ratios <i class="variable">&upsilon;<sub>i</sub></i>.</li>
+      <li><i class="plot">Debt to Capital Ratio</i>: Time series of debt to capital ratios <i class="variable">d<sub>i</sub></i>.</li>
+      <li><i class="plot">R&amp;D Expenditure</i>: Time series each firm's R&amp;D expenditure <i class="variable">R<sub>i</sub></i>.</li>
+      <li><i class="plot">Scientists wages</i>: Time series of scientists' wages in each nation <i class="variable">w<sub>i</sub></i>.</li>
+   </ul>
+
+   <H2>LICENCE</H2>
+   <p>InCaLead is an evolutionary model of industrial catch-up which incorporates industrial scientists' training and migration, endogenous R&amp;D decisions and the possibility of funding capital accumulation through debt.
+      <br>Copyright (C) 2010 <a target="_blank" href="http://almudi.name">Isabel Almud&iacute;</a>, <a target="_blank" href="http://fatas.name">Francisco Fat&aacute;s-Villafranca</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a></p>
+
+   <p>This program is free software; you can redistribute it and/or modify it under the terms of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+   <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> for more details.</p>
+   <p>You can download a copy of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> by clicking <a target="_blank" href="./gpl-3.0.txt">here</a>; you can also get a printed copy writing to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+   <p>Contact information:
+      <br>Luis R. Izquierdo
+      <br> University of Burgos, Spain.
+      <br> e-mail: <a href="mailto:lrizquierdo@ubu.es">lrizquierdo@ubu.es</a>
+   </p>
+
+
+   <H2>MODELLERS</H2>
+   <p>This program has been designed by <a target="_blank" href="http://almudi.name">Isabel Almud&iacute;</a>, <a target="_blank" href="http://fatas.name">Francisco Fat&aacute;s-Villafranca</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>, and implemented by <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>.</p>
+
+   <H2>REFERENCES</H2>
+   <ul>
+      <li><b>Chiao, C. (2002)</b>. Relationship between Debt, R&amp;D and Physical Investment. Evidence from US Firm-level Data. Applied Financial Economics, 12, 105-121.</li>
+      <li><b>Fat&aacute;s-Villafranca, F., Saura, D. J., and V&aacute;zquez, F.J. (2009)</b>. Diversity, persistence and chaos in consumption patterns. Journal of Bioeconomics 11, 43-63.</li>
+      <li><b>Freeman, C. (2004)</b>. Technological Infrastructures and International Competitiveness. Industrial and Corporate Change, 13 (3), 541-569.</li>
+      <li><b>Greenwald, B. and Stiglitz, J. (1990)</b>. Macroeconomic Models with Equity and Credit Rationing, in Hubbard G. (ed) Asymmetric Information, Corporate Finance and Investment. University of Chicago Press, Chicago.</li>
+      <li><b>Metcalfe, J.S. (1998)</b>. Evolutionary Economics and Creative Destruction. Routledge. London.</li>
+      <li><b>Nelson, R.R. and Phelps, E.S. (1966)</b>. Investment in Humans, Technological Diffusion and Economic Growth. American Economic Review, 56, 69-75.</li>
+      <li><b>Silverberg, G. and Verspagen, B. (2005)</b>. Evolutionary Theorizing on Economic Growth. In Dopfer K. (ed) The Evolutionary Foundations of Economics. Cambridge University Press. Cambridge, UK.</li>
+   </ul>
+
+   <hr>
+
+</body>
+
+</html>
